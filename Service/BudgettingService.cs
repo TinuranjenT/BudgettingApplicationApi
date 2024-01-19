@@ -26,6 +26,13 @@ namespace BudgettingApplication.Service
             .Where(i => i.UserId == userId && i.TransactionMonth == month)
             .ToListAsync();
         }
+
+        public async Task<List<Income>> GetIncomesByUserId(int userId)
+        {
+            return await databaseContext.Incomes
+                .Where(i => i.UserId == userId)
+                .ToListAsync();
+        }
         public async Task<Income> AddIncome(Income income)
         {
             databaseContext.Incomes.Add(income);
@@ -115,6 +122,13 @@ namespace BudgettingApplication.Service
             .Where(i => i.UserId == userId && i.TransactionMonth == month)
             .ToListAsync();
         }
+        public async Task<List<Expense>> GetExpensesByUserId(int userId)
+        {
+            return await databaseContext.Expenses
+                .Where(i => i.UserId == userId)
+                .ToListAsync();
+        }
+
         public async Task<Expense> AddExpense(Expense expense)
         {
             databaseContext.Expenses.Add(expense);

@@ -8,8 +8,10 @@ namespace BudgettingApplication
     {
         Task<List<Income>> GetAllIncomes();
         Task<IEnumerable<Income>> GetMonthlyIncome(int userId, Months month);
+        Task<List<Income>> GetIncomesByUserId(int userId);
         Task<Income> AddIncome(Income income);
         Task<Expense> AddExpense(Expense expense);
+        Task<List<Expense>> GetExpensesByUserId(int userId);
         Task<List<Transaction>> GetAllTransactions();
         Task<Transaction> GetTransactionById(int id);
         Task AddTransaction(Transaction transaction);

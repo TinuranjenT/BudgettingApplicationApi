@@ -34,6 +34,19 @@ namespace BudgettingApplication.Controllers
 
             return Ok(income);
         }
+
+        [HttpGet("GetIncomesByUserId/{userId}")]
+        public async Task<IActionResult> GetIncomesByUserId(int userId)
+        {
+            var incomes = await _service.GetIncomesByUserId(userId);
+
+            if (incomes == null || !incomes.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(incomes);
+        }
         [HttpPost("AddNewIncome")]
         public async Task<ActionResult<Income>> AddIncome(Income income)
         {
