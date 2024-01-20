@@ -14,38 +14,59 @@ namespace BudgettingApplication.Controllers
         {
             _service = service;
         }
+
         [HttpGet("GetAllExpenses")]
         public async Task<ActionResult> GetAllExpenses()
         {
-            var expenses = await _service.GetAllExpenses();
-            return Ok(expenses);
+            try
+            {
+                var expenses = await _service.GetAllExpenses();
+                return Ok(expenses);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching all expenses: {ex.Message}");
+            }
         }
 
         [HttpGet("GetSpecificMonthExpenseById")]
-        public async Task<IActionResult> GetMonthlyExpenseById(int userId, Months month)
+        public async Task<ActionResult> GetMonthlyExpenseById(int userId, Months month)
         {
-            var expense = await _service.GetMonthlyExpense(userId, month);
-
-            if (expense == null)
+            try
             {
-                return NotFound();
-            }
+                var expense = await _service.GetMonthlyExpense(userId, month);
 
-            return Ok(expense);
+                if (expense == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(expense);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching the monthly expense: {ex.Message}");
+            }
         }
 
         [HttpGet("GetExpensesByUserId/{userId}")]
         public async Task<IActionResult> GetExpensesByUserId(int userId)
         {
-            var incomes = await _service.GetExpensesByUserId(userId);
-
-            if (incomes == null || !incomes.Any())
+            try
             {
-                return NotFound();
+                var incomes = await _service.GetExpensesByUserId(userId);
+                if (incomes == null || !incomes.Any())
+                {
+                    return NotFound();
+                }
+                return Ok(incomes);
             }
-
-            return Ok(incomes);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching expenses by user ID: {ex.Message}");
+            }
         }
+
         [HttpPost("AddExpense")]
         public async Task<ActionResult<Expense>> AddExpense(Expense expense)
         {
@@ -53,44 +74,68 @@ namespace BudgettingApplication.Controllers
             {
                 var addedExpense = await _service.AddExpense(expense);
                 return Ok(addedExpense);
-
             }
             catch (Exception ex)
             {
-
                 Console.WriteLine($"Error: {ex.Message}");
                 return StatusCode(500, "An unexpected error occurred while processing the request.");
             }
-
         }
 
         [HttpGet("GetMonthlyExpense/{userId}")]
         public async Task<IActionResult> GetMonthlyExpense(int userId)
         {
-            var monthlyExpense = await _service.GetMonthlyExpense(userId);
-            return Ok(monthlyExpense);
+            try
+            {
+                var monthlyExpense = await _service.GetMonthlyExpense(userId);
+                return Ok(monthlyExpense);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching monthly expense: {ex.Message}");
+            }
         }
 
         [HttpGet("GetQuarterlyExpense/{userId}")]
         public async Task<IActionResult> GetQuarterlyExpense(int userId)
         {
-            var quarterlyExpense = await _service.GetQuarterlyExpense(userId);
-            return Ok(quarterlyExpense);
+            try
+            {
+                var quarterlyExpense = await _service.GetQuarterlyExpense(userId);
+                return Ok(quarterlyExpense);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching quarterly expense: {ex.Message}");
+            }
         }
 
         [HttpGet("GetHalfYearlyExpense/{userId}")]
         public async Task<IActionResult> GetHalfYearlyExpense(int userId)
         {
-            var halfYearlyExpense = await _service.GetHalfYearlyExpense(userId);
-            return Ok(halfYearlyExpense);
+            try
+            {
+                var halfYearlyExpense = await _service.GetHalfYearlyExpense(userId);
+                return Ok(halfYearlyExpense);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching half-yearly expense: {ex.Message}");
+            }
         }
 
         [HttpGet("GetAnnualExpense/{userId}")]
         public async Task<IActionResult> GetAnnualExpense(int userId)
         {
-            var annualExpense = await _service.GetAnnualExpense(userId);
-            return Ok(annualExpense);
+            try
+            {
+                var annualExpense = await _service.GetAnnualExpense(userId);
+                return Ok(annualExpense);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching annual expense: {ex.Message}");
+            }
         }
-    
     }
 }

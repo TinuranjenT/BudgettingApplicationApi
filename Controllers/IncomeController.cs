@@ -18,35 +18,53 @@ namespace BudgettingApplication.Controllers
         [HttpGet("GetAllIncome")]
         public async Task<ActionResult> GetAllIncomes()
         {
-            var incomes = await _service.GetAllIncomes();
-            return Ok(incomes);
+            try
+            {
+                var incomes = await _service.GetAllIncomes();
+                return Ok(incomes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching all incomes: {ex.Message}");
+            }
         }
 
         [HttpGet("GetSpecificMonthIncomeById")]
-        public async Task<IActionResult> GetMonthlyIncomeById(int userId, Months month)
+        public async Task<ActionResult> GetMonthlyIncomeById(int userId, Months month)
         {
-            var income = await _service.GetMonthlyIncome(userId, month);
-
-            if (income == null)
+            try
             {
-                return NotFound();
+                var income = await _service.GetMonthlyIncome(userId, month);
+                if (income == null)
+                {
+                    return NotFound();
+                }
+                return Ok(income);
             }
-
-            return Ok(income);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching the monthly income: {ex.Message}");
+            }
         }
 
         [HttpGet("GetIncomesByUserId/{userId}")]
-        public async Task<IActionResult> GetIncomesByUserId(int userId)
+        public async Task<ActionResult> GetIncomesByUserId(int userId)
         {
-            var incomes = await _service.GetIncomesByUserId(userId);
-
-            if (incomes == null || !incomes.Any())
+            try
             {
-                return NotFound();
+                var incomes = await _service.GetIncomesByUserId(userId);
+                if (incomes == null)
+                {
+                    return NotFound();
+                }
+                return Ok(incomes);
             }
-
-            return Ok(incomes);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching incomes by user ID: {ex.Message}");
+            }
         }
+
         [HttpPost("AddNewIncome")]
         public async Task<ActionResult<Income>> AddIncome(Income income)
         {
@@ -62,35 +80,62 @@ namespace BudgettingApplication.Controllers
                 Console.WriteLine($"Error: {ex.Message}");
                 return StatusCode(500, "An unexpected error occurred while processing the request.");
             }
-
         }
 
         [HttpGet("GetMonthlyIncome/{userId}")]
-        public async Task<IActionResult> GetMonthlyIncome(int userId)
+        public async Task<ActionResult> GetMonthlyIncome(int userId)
         {
-            var monthlyIncome = await _service.GetMonthlyIncome(userId);
-            return Ok(monthlyIncome);
+            try
+            {
+                var monthlyIncome = await _service.GetMonthlyIncome(userId);
+                return Ok(monthlyIncome);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching monthly income: {ex.Message}");
+            }
         }
 
         [HttpGet("GetQuarterlyIncome/{userId}")]
-        public async Task<IActionResult> GetQuarterlyIncome(int userId)
+        public async Task<ActionResult> GetQuarterlyIncome(int userId)
         {
-            var quarterlyIncome = await _service.GetQuarterlyIncome(userId);
-            return Ok(quarterlyIncome);
+            try
+            {
+                var quarterlyIncome = await _service.GetQuarterlyIncome(userId);
+                return Ok(quarterlyIncome);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching quarterly income: {ex.Message}");
+            }
         }
 
         [HttpGet("GetHalfYearlyIncome/{userId}")]
-        public async Task<IActionResult> GetHalfYearlyIncome(int userId)
+        public async Task<ActionResult> GetHalfYearlyIncome(int userId)
         {
-            var halfYearlyIncome = await _service.GetHalfYearlyIncome(userId);
-            return Ok(halfYearlyIncome);
+            try
+            {
+                var halfYearlyIncome = await _service.GetHalfYearlyIncome(userId);
+                return Ok(halfYearlyIncome);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching half-yearly income: {ex.Message}");
+            }
         }
 
         [HttpGet("GetAnnualIncome/{userId}")]
-        public async Task<IActionResult> GetAnnualIncome(int userId)
+        public async Task<ActionResult> GetAnnualIncome(int userId)
         {
-            var annualIncome = await _service.GetAnnualIncome(userId);
-            return Ok(annualIncome);
+            try
+            {
+                var annualIncome = await _service.GetAnnualIncome(userId);
+                return Ok(annualIncome);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching annual income: {ex.Message}");
+            }
         }
     }
 }

@@ -16,23 +16,36 @@ namespace BudgettingApplication.Controllers
         }
 
         [HttpGet("GetAllTransactions")]
-        public async Task<IActionResult> GetAllTransactions()
+        public async Task<ActionResult> GetAllTransactions()
         {
-            var transaction = await _service.GetAllTransactions();
-            return Ok(transaction);
+            try
+            {
+                var transactions = await _service.GetAllTransactions();
+                return Ok(transactions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching all transactions: {ex.Message}");
+            }
         }
 
         [HttpGet("GetTransactionsById/{id}")]
-        public async Task<IActionResult> GetTransactionsById(int id)
+        public async Task<ActionResult> GetTransactionsById(int id)
         {
-            var transaction = await _service.GetTransactionById(id);
-
-            if (transaction == null)
+            try
             {
-                return NotFound();
-            }
+                var transaction = await _service.GetTransactionById(id);
 
-            return Ok(transaction);
+                if (transaction == null)
+                {
+                    return NotFound();
+                }
+                return Ok(transaction);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while fetching the transaction: {ex.Message}");
+            }
         }
 
 
@@ -45,21 +58,13 @@ namespace BudgettingApplication.Controllers
                 {
                     return BadRequest("Invalid transaction data");
                 }
-
                 await _service.AddTransaction(transaction);
-
-
                 return Ok("Transaction added successfully.");
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest("An error occurred while processing the transaction.");
             }
-            //catch (Exception ex)
-            //{
-            //    // Handle other exceptions
-            //    return StatusCode(500, "Internal server error");
-            //}
         }
 
     }

@@ -16,8 +16,16 @@ namespace BudgettingApplication.Controllers
         [HttpGet("GetAllUsers")]
         public async Task<ActionResult> GetAllusers()
         {
-            var users = await _service.GetAllUsers();
-            return Ok(users);
+            try
+            {
+                var users = await _service.GetAllUsers();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, "An unexpected error occurred while processing the request.");
+            }
         }
 
         [HttpPost("AddNewUser")]
