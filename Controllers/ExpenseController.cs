@@ -50,12 +50,12 @@ namespace BudgettingApplication.Controllers
         }
 
         [HttpGet("GetExpensesByUserId/{userId}")]
-        public async Task<IActionResult> GetExpensesByUserId(int userId)
+        public async Task<ActionResult> GetExpensesByUserId(int userId)
         {
             try
             {
                 var incomes = await _service.GetExpensesByUserId(userId);
-                if (incomes == null || !incomes.Any())
+                if (incomes == null)
                 {
                     return NotFound();
                 }
@@ -83,7 +83,7 @@ namespace BudgettingApplication.Controllers
         }
 
         [HttpGet("GetMonthlyExpense/{userId}")]
-        public async Task<IActionResult> GetMonthlyExpense(int userId)
+        public async Task<ActionResult> GetMonthlyExpense(int userId)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace BudgettingApplication.Controllers
         }
 
         [HttpGet("GetQuarterlyExpense/{userId}")]
-        public async Task<IActionResult> GetQuarterlyExpense(int userId)
+        public async Task<ActionResult> GetQuarterlyExpense(int userId)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace BudgettingApplication.Controllers
         }
 
         [HttpGet("GetHalfYearlyExpense/{userId}")]
-        public async Task<IActionResult> GetHalfYearlyExpense(int userId)
+        public async Task<ActionResult> GetHalfYearlyExpense(int userId)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace BudgettingApplication.Controllers
         }
 
         [HttpGet("GetAnnualExpense/{userId}")]
-        public async Task<IActionResult> GetAnnualExpense(int userId)
+        public async Task<ActionResult> GetAnnualExpense(int userId)
         {
             try
             {

@@ -161,8 +161,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while fetching annual income summaries.", ex);
             }
         }
-
-
         public async Task<List<Expense>> GetAllExpenses()
         {
             try
@@ -201,7 +199,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while fetching expenses by user ID.", ex);
             }
         }
-
         public async Task<Expense> AddExpense(Expense expense)
         {
             try
@@ -240,7 +237,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while fetching monthly expense summaries.", ex);
             }
         }
-
         public async Task<List<ExpenseSummary>> GetQuarterlyExpense(int userId)
         {
             try
@@ -265,7 +261,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while fetching quarterly expense summaries.", ex);
             }
         }
-
         public async Task<List<ExpenseSummary>> GetHalfYearlyExpense(int userId)
         {
             try
@@ -290,7 +285,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while fetching half-yearly expense summaries.", ex);
             }
         }
-
         public async Task<List<ExpenseSummary>> GetAnnualExpense(int userId)
         {
             try
@@ -312,7 +306,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while fetching annual expense summaries.", ex);
             }
         }
-
         public async Task<List<Transaction>> GetAllTransactions()
         {
             try
@@ -411,7 +404,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while adding a transaction.", ex);
             }
         }
-
         public async Task<List<User>> GetAllUsers()
         {
             try
@@ -423,7 +415,6 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while fetching all users.", ex);
             }
         }
-
         public async Task<User> AddUser(User user)
         {
             try
@@ -437,6 +428,5 @@ namespace BudgettingApplication.Service
                 throw new Exception("An error occurred while adding a user.", ex);
             }
         }
-
     }
 }
