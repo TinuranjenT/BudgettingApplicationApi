@@ -13,6 +13,7 @@ namespace BudgettingApplication.Controllers
         {
             _service = service;
         }
+
         [HttpGet("GetAllUsers")]
         public async Task<ActionResult> GetAllusers()
         {
@@ -43,9 +44,6 @@ namespace BudgettingApplication.Controllers
                 Console.WriteLine($"Error: {ex.Message}");
                 return StatusCode(500, "An unexpected error occurred while processing the request.");
             }
-
         }
-
-
     }
 }

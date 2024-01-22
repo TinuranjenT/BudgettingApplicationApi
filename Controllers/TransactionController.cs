@@ -48,7 +48,6 @@ namespace BudgettingApplication.Controllers
             }
         }
 
-
         [HttpPost("AddNewTransaction")]
         public async Task<ActionResult> AddTransaction(Transaction transaction)
         {

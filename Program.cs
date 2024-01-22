@@ -23,6 +23,15 @@ namespace BudgettingApplication
 
             builder.Services.AddScoped<Iservice, BudgettingService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
 
             var app = builder.Build();
@@ -37,6 +46,8 @@ namespace BudgettingApplication
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowAnyOrigin");
 
 
             app.MapControllers();
